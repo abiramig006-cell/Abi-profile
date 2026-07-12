@@ -34,11 +34,15 @@ export default function AutoScrollFromStart({ enabled = true }: AutoScrollFromSt
   useEffect(() => {
     if (!enabled || !lenis) return;
 
+    const releaseLenis = () => {
+      lenis.scrollTo(lenis.scroll, { immediate: true, force: true });
+    };
+
     const stopAutoScroll = () => {
       tweenRef.current?.kill();
       tweenRef.current = null;
       runningRef.current = false;
-      lenis.isLocked = false;
+      releaseLenis();
     };
 
     const startAutoScroll = (direction: 1 | -1) => {
@@ -46,6 +50,7 @@ export default function AutoScrollFromStart({ enabled = true }: AutoScrollFromSt
 
       tweenRef.current?.kill();
       tweenRef.current = null;
+      releaseLenis();
 
       lenis.resize();
 
@@ -55,13 +60,11 @@ export default function AutoScrollFromStart({ enabled = true }: AutoScrollFromSt
 
       if (distance < 2) {
         runningRef.current = false;
-        lenis.isLocked = false;
         return;
       }
 
       runningRef.current = true;
       directionRef.current = direction;
-      lenis.isLocked = true;
       scrollRef.current.y = current;
 
       tweenRef.current = gsap.to(scrollRef.current, {
@@ -78,13 +81,13 @@ export default function AutoScrollFromStart({ enabled = true }: AutoScrollFromSt
         },
         onComplete: () => {
           runningRef.current = false;
-          lenis.isLocked = false;
           tweenRef.current = null;
+          releaseLenis();
         },
         onInterrupt: () => {
           runningRef.current = false;
-          lenis.isLocked = false;
           tweenRef.current = null;
+          releaseLenis();
         },
       });
     };

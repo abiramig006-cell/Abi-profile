@@ -26,7 +26,7 @@ function mapRepos(repos: GitHubRepo[]) {
 export async function fetchGitHubProjects(): Promise<Project[]> {
   try {
     const response = await fetch("https://api.github.com/users/selvendran254/repos?per_page=100&sort=updated", {
-      next: { revalidate: 3600 },
+      cache: "force-cache",
     });
 
     if (!response.ok) {
