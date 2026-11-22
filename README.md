@@ -2,12 +2,6 @@
 
 Personal portfolio website built with Next.js, GSAP, and Lenis smooth scrolling.
 
-## Live URL
-
-| Repo name | Live URL |
-| --- | --- |
-| `website-portfolio-` | [https://selvendran254.github.io/website-portfolio-/](https://selvendran254.github.io/website-portfolio-/) |
-
 ## Getting Started
 
 First, run the development server:

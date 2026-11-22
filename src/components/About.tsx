@@ -69,7 +69,7 @@ export default function About() {
             ))}
 
             <div data-reveal className="rounded-2xl border border-white/10 bg-white/[0.02] p-6">
-              <p className="mb-4 text-xs uppercase tracking-[0.25em] text-white/45">Currently exploring</p>
+              <p className="mb-4 text-xs uppercase tracking-[0.25em] text-white/45">Focus</p>
               <ul className="grid gap-2 sm:grid-cols-2">
                 {portfolio.exploring.map((item) => (
                   <li key={item} className="text-sm text-white/75">

@@ -8,9 +8,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Abirami G — AI/ML Engineer & Full-Stack Developer",
+  title: "Abirami G — Full Stack Web Development & Artificial Intelligence",
   description:
-    "Portfolio of Abirami G — Computer Science Engineering student passionate about AI, computer vision, and full-stack development.",
+    "Portfolio of Abirami G, a Computer Science Engineering student building responsive web applications and AI-driven solutions.",
 };
 
 export default function RootLayout({

@@ -11,7 +11,7 @@ type GitHubRepo = {
 
 const fallbackRepos: GitHubRepo[] = Object.keys(repoOverrides).map((name) => ({
   name,
-  html_url: `https://github.com/selvendran254/${encodeURIComponent(name)}`,
+  html_url: `https://github.com/abiramig006/${encodeURIComponent(name)}`,
   description: repoOverrides[name].description ?? null,
   language: repoOverrides[name].language ?? "Code",
   updated_at: new Date().toISOString(),
@@ -25,7 +25,7 @@ function mapRepos(repos: GitHubRepo[]) {
 
 export async function fetchGitHubProjects(): Promise<Project[]> {
   try {
-    const response = await fetch("https://api.github.com/users/selvendran254/repos?per_page=100&sort=updated", {
+    const response = await fetch("https://api.github.com/users/abiramig006/repos?per_page=100&sort=updated", {
       cache: "force-cache",
     });
 

@@ -70,6 +70,15 @@ export default function MenuOverlay({ open, onClose }: MenuOverlayProps) {
         >
           Contact
         </a>
+        <a
+          href={portfolio.resume}
+          download
+          onClick={onClose}
+          className="menu-link-item text-4xl font-light text-white/60 md:text-6xl"
+          data-cursor
+        >
+          Download resume
+        </a>
       </div>
 
       <div className="grid gap-8 border-t border-white/10 pt-8 md:grid-cols-2">

@@ -70,7 +70,7 @@ export default function Navbar() {
           className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 md:px-10"
         >
           <Link href="#" className="nav-item text-sm font-medium uppercase tracking-[0.3em] text-white">
-            {portfolio.firstName}
+            {portfolio.name}
           </Link>
 
           <div className="hidden items-center gap-8 md:flex">
@@ -87,14 +87,21 @@ export default function Navbar() {
 
           <div className="flex items-center gap-4 md:gap-6">
             <ThemeToggle />
-            <button
-              type="button"
-              onClick={() => setMenuOpen(true)}
-              className="nav-item text-xs uppercase tracking-[0.25em] text-white/80 md:hidden"
-            >
-              Menu
-            </button>
-            <ScrambleButton href="#contact" label="Get in touch" className="nav-item hidden text-white md:inline-flex" />
+            <div className="nav-item flex items-center gap-4">
+              <button
+                type="button"
+                onClick={() => setMenuOpen(true)}
+                className="text-xs uppercase tracking-[0.25em] text-white/80 md:hidden"
+              >
+                Menu
+              </button>
+              <ScrambleButton
+                href={portfolio.resume}
+                label="Download resume"
+                download
+                className="text-white"
+              />
+            </div>
           </div>
         </div>
       </nav>

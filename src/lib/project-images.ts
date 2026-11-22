@@ -1,7 +1,7 @@
 export function githubRepoImage(repo: string) {
-  return `https://opengraph.githubassets.com/1/selvendran254/${encodeURIComponent(repo)}`;
+  return `https://opengraph.githubassets.com/1/abiramig006/${encodeURIComponent(repo)}`;
 }
 
 export function githubUserImage() {
-  return "https://opengraph.githubassets.com/1/selvendran254";
+  return "https://opengraph.githubassets.com/1/abiramig006";
 }

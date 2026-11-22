@@ -30,7 +30,7 @@ export default function Experience() {
           </div>
           <div className="overflow-hidden">
             <p data-line className="mt-4 text-white/60">
-              Hackathons, competitions, and workshops that shaped how I build and present ideas.
+              Hackathons and college competitions — internal wins, a national final, and design prizes.
             </p>
           </div>
         </div>

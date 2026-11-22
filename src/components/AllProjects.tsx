@@ -50,7 +50,7 @@ export default function AllProjects() {
             <p data-line className="mt-4 text-white/60">
               {allProjects.length} repositories synced live from{" "}
               <a href={portfolio.github} className="underline underline-offset-4 hover:text-white" data-cursor>
-                github.com/selvendran254
+                github.com/abiramig006
               </a>
             </p>
           </div>

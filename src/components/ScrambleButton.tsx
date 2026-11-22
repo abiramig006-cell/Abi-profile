@@ -11,6 +11,7 @@ type ScrambleButtonProps = {
   label: string;
   className?: string;
   external?: boolean;
+  download?: boolean;
 };
 
 export default function ScrambleButton({
@@ -18,6 +19,7 @@ export default function ScrambleButton({
   label,
   className = "",
   external = false,
+  download = false,
 }: ScrambleButtonProps) {
   const textRef = useRef<HTMLSpanElement>(null);
   const magneticRef = useMagnetic<HTMLSpanElement>(0.25);
@@ -38,9 +40,15 @@ export default function ScrambleButton({
     </span>
   );
 
-  if (external) {
+  if (external || download) {
     return (
-      <a href={href} target="_blank" rel="noopener noreferrer" className={classes} data-cursor {...handlers}>
+      <a
+        href={href}
+        className={classes}
+        data-cursor
+        {...handlers}
+        {...(download ? { download: "" } : { target: "_blank", rel: "noopener noreferrer" })}
+      >
         {content}
       </a>
     );

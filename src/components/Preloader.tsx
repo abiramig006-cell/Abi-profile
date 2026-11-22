@@ -44,8 +44,8 @@ export default function Preloader({ onComplete }: { onComplete: () => void }) {
           {portfolio.firstName.charAt(0)}
           {portfolio.lastName.charAt(0)}
         </div>
-        <p className="preloader-particle text-3xl font-light lowercase tracking-tight text-white md:text-5xl">
-          {portfolio.firstName.toLowerCase()}
+        <p className="preloader-particle text-3xl font-light uppercase tracking-tight text-white md:text-5xl">
+          {portfolio.name}
         </p>
         <p className="preloader-text max-w-md text-sm uppercase tracking-[0.35em] text-white/70">
           {portfolio.role}

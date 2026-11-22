@@ -86,8 +86,8 @@ export default function Projects() {
               </div>
               <div className="overflow-hidden">
                 <p data-line className="mt-4 text-white/60">
-                  {projects.length} featured projects across AI, computer vision, and full-stack
-                  development — each with its problem, approach, and honest status.
+                  {projects.length} projects in full-stack development, weather analytics, textile
+                  defect detection, and smart waste.
                 </p>
               </div>
             </div>
@@ -144,7 +144,15 @@ export default function Projects() {
                     active === index ? "opacity-100" : "opacity-80"
                   }`}
                 >
-                  <p className="line-clamp-3 text-sm leading-relaxed text-white/65">{project.description}</p>
+                  {project.points ? (
+                    <ul className="space-y-2 text-sm leading-relaxed text-white/65">
+                      {project.points.map((point) => (
+                        <li key={point}>{point}</li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p className="text-sm leading-relaxed text-white/65">{project.description}</p>
+                  )}
                 </div>
               </a>
             ))}

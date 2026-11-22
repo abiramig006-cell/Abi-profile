@@ -48,6 +48,9 @@ export default function Contact() {
               <a href={`mailto:${portfolio.email}`} className="block transition-colors hover:text-white" data-cursor>
                 {portfolio.email}
               </a>
+              <a href={portfolio.phoneHref} className="block transition-colors hover:text-white" data-cursor>
+                {portfolio.phone}
+              </a>
               <p>{portfolio.location}</p>
               <p>{portfolio.languages.join(" · ")}</p>
             </div>
@@ -66,6 +69,15 @@ export default function Contact() {
               Compose email →
             </a>
           </div>
+        </div>
+
+        <div data-reveal className="mt-16 border-t border-white/10 pt-10">
+          <ScrambleButton
+            href={portfolio.resume}
+            label="Download resume"
+            download
+            className="whitespace-nowrap rounded-full border border-white/25 bg-white/10 px-5 py-2.5 text-white backdrop-blur-sm"
+          />
         </div>
       </div>
     </section>

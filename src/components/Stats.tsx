@@ -66,7 +66,7 @@ export default function Stats() {
   const stats = [
     { label: "Since", value: 2024, suffix: "" },
     { label: "Projects", value: repoCount, suffix: "" },
-    { label: "Hackathons", value: 3, suffix: "+" },
+    { label: "Hackathons", value: 5, suffix: "" },
     { label: "Certifications", value: portfolio.certifications.length, suffix: "" },
   ];
 

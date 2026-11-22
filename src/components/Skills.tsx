@@ -1,49 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { gsap, registerGsap } from "@/lib/gsap";
+import { useState } from "react";
 import { portfolio } from "@/data/portfolio";
 import { useSplitHeading } from "@/hooks/useRevealOnScroll";
-
-function SkillBar({ label, level, active }: { label: string; level: number; active: boolean }) {
-  const barRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    registerGsap();
-    const bar = barRef.current;
-    if (!bar) return;
-
-    gsap.fromTo(
-      bar,
-      { scaleX: 0 },
-      {
-        scaleX: level / 100,
-        duration: 1.2,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: bar,
-          start: "top 90%",
-          once: true,
-        },
-      },
-    );
-  }, [level]);
-
-  return (
-    <div className={`transition-opacity duration-500 ease-out ${active ? "opacity-100" : "opacity-45"}`}>
-      <div className="mb-2 flex items-center justify-between gap-2 text-[10px] uppercase tracking-[0.16em] text-white/50 sm:text-xs sm:tracking-[0.2em]">
-        <span className="truncate">{label}</span>
-        <span>{level}%</span>
-      </div>
-      <div className="h-1.5 overflow-hidden rounded-full bg-white/10">
-        <div
-          ref={barRef}
-          className="h-full origin-left rounded-full bg-gradient-to-r from-emerald-400 to-blue-400"
-        />
-      </div>
-    </div>
-  );
-}
 
 export default function Skills() {
   const headingRef = useSplitHeading<HTMLDivElement>();
@@ -69,20 +28,9 @@ export default function Skills() {
           </div>
           <div className="overflow-hidden">
             <p data-line className="mt-4 text-white/60">
-              Technologies I use in coursework, projects, and hackathons — grouped by where they fit in the stack.
+              Java, Python, HTML, CSS, JavaScript, React, Node.js, Express.js, MongoDB, and SQL.
             </p>
           </div>
-        </div>
-
-        <div className="mb-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {portfolio.skills.map((group, index) => (
-            <SkillBar
-              key={group.category}
-              label={group.category}
-              level={group.level}
-              active={activeCategory === index}
-            />
-          ))}
         </div>
 
         <div className="grid gap-10 lg:grid-cols-[280px_1fr]">
@@ -113,10 +61,9 @@ export default function Skills() {
               }}
             />
             <div key={activeSkill.category} className="skill-panel-in">
-              <h3 className="mb-2 text-xs uppercase tracking-[0.25em] text-white/40">
+              <h3 className="mb-6 text-xs uppercase tracking-[0.25em] text-white/40">
                 {activeSkill.category}
               </h3>
-              <p className="mb-6 text-sm text-white/55">{activeSkill.level}% proficiency</p>
               <ul className="grid gap-3 sm:grid-cols-2">
                 {items.map((item, index) => (
                   <li

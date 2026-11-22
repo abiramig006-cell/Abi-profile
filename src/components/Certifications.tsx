@@ -29,7 +29,7 @@ export default function Certifications() {
                 </div>
                 <div className="absolute inset-0 flex items-center justify-center rounded-2xl border border-emerald-400/30 bg-emerald-400/10 p-6 [backface-visibility:hidden] [transform:rotateY(180deg)]">
                   <p className="text-center text-sm uppercase tracking-[0.25em] text-emerald-300">
-                    Verified · {cert.org}
+                    Certification · {cert.org}
                   </p>
                 </div>
               </div>
