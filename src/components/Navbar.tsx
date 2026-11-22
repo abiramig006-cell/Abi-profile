@@ -75,13 +75,13 @@ export default function Navbar() {
 
           <div className="hidden items-center gap-8 md:flex">
             {portfolio.navLinks.map((link) => (
-              <Link
+              <a
                 key={link.href}
                 href={link.href}
                 className="nav-item text-xs uppercase tracking-[0.25em] text-white/70 transition-colors hover:text-white"
               >
                 {link.label}
-              </Link>
+              </a>
             ))}
           </div>
 

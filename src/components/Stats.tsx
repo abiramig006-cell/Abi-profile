@@ -64,10 +64,10 @@ export default function Stats() {
   const repoCount = projects.length;
 
   const stats = [
-    { label: "Since", value: 2022, suffix: "" },
-    { label: "Projects", value: repoCount, suffix: "+" },
-    { label: "GitHub Repos", value: repoCount, suffix: "" },
-    { label: "Certifications", value: 4, suffix: "+" },
+    { label: "Since", value: 2024, suffix: "" },
+    { label: "Projects", value: repoCount, suffix: "" },
+    { label: "Hackathons", value: 3, suffix: "+" },
+    { label: "Certifications", value: portfolio.certifications.length, suffix: "" },
   ];
 
   const impactStats = portfolio.getImpactStats(repoCount);
@@ -112,8 +112,8 @@ export default function Stats() {
             </div>
             <div className="overflow-hidden">
               <p data-line className="mt-4 text-white/60">
-                Each number represents real GitHub projects, certifications, and hands-on embedded
-                experience.
+                Academic projects, hackathons, certifications, and continuous learning in AI and
+                full-stack development.
               </p>
             </div>
           </div>
@@ -135,7 +135,7 @@ export default function Stats() {
             What happens after the work goes live.
           </h3>
           <p className="mt-3 max-w-2xl text-sm text-white/55 md:text-base">
-            Real outcomes from IoT, AI, embedded and full-stack projects.
+            Outcomes from coursework, competitions, and project work in AI and software development.
           </p>
         </div>
         <div ref={trackRef} className="flex w-max gap-6 px-6 md:gap-8 md:px-10">

@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { portfolio } from "@/data/portfolio";
 import LiveClock from "./LiveClock";
 import ScrambleButton from "./ScrambleButton";
@@ -11,7 +10,7 @@ export default function Footer() {
     <footer className="border-t border-white/10 bg-neutral-950">
       <div className="mx-auto max-w-7xl px-6 py-20 md:px-10">
         <div className="mb-10">
-          <MiniParticleText word={portfolio.firstName.toLowerCase()} />
+          <MiniParticleText word={portfolio.name.toUpperCase()} />
         </div>
 
         <div className="mb-16 overflow-hidden">
@@ -36,15 +35,15 @@ export default function Footer() {
           <LiveClock />
           <div className="flex gap-6 text-xs uppercase tracking-[0.2em] text-white/50">
             {portfolio.navLinks.map((link) => (
-              <Link key={link.href} href={link.href} className="hover:text-white">
+              <a key={link.href} href={link.href} className="hover:text-white">
                 {link.label}
-              </Link>
+              </a>
             ))}
           </div>
         </div>
 
         <p className="mt-10 text-xs uppercase tracking-[0.25em] text-white/30">
-          © {portfolio.firstName} {new Date().getFullYear()}
+          Designed and built by {portfolio.name} · {new Date().getFullYear()}
         </p>
       </div>
     </footer>

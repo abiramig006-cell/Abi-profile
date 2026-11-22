@@ -9,6 +9,8 @@ export default function Contact() {
   const headingRef = useSplitHeading<HTMLDivElement>();
   const sectionRef = useRevealOnScroll<HTMLElement>();
 
+  const mailtoBody = encodeURIComponent("Hi Abirami,\n\n");
+
   return (
     <section id="contact" ref={sectionRef} className="relative overflow-hidden py-24 md:py-32">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_50%,rgba(16,185,129,0.12),transparent_45%)]" />
@@ -18,12 +20,12 @@ export default function Contact() {
           <div ref={headingRef}>
             <div className="overflow-hidden">
               <h2 data-line className="text-4xl font-light leading-tight text-white md:text-6xl">
-                Want to talk about a project?
+                Have an idea worth building?
               </h2>
             </div>
             <p data-reveal className="mt-6 max-w-xl text-base leading-relaxed text-white/65">
-              Open to internships, IoT collaborations, embedded systems projects, and full-stack development
-              opportunities.
+              I&apos;m interested in internships, learning opportunities, collaborations, and building
+              meaningful technology.
             </p>
 
             <form
@@ -33,8 +35,7 @@ export default function Contact() {
                 event.preventDefault();
               }}
             >
-              <AnimatedInput label="Name" name="name" />
-              <AnimatedInput label="Email" name="email" type="email" />
+              <AnimatedInput label="Your name" name="name" />
               <AnimatedInput label="Message" name="message" multiline />
             </form>
           </div>
@@ -47,16 +48,23 @@ export default function Contact() {
               <a href={`mailto:${portfolio.email}`} className="block transition-colors hover:text-white" data-cursor>
                 {portfolio.email}
               </a>
-              <a href={`tel:${portfolio.phone}`} className="block transition-colors hover:text-white" data-cursor>
-                {portfolio.phone}
-              </a>
               <p>{portfolio.location}</p>
+              <p>{portfolio.languages.join(" · ")}</p>
             </div>
 
             <div className="mt-8 flex flex-wrap gap-6">
               <ScrambleButton href={portfolio.github} label="GitHub" external className="text-white" />
               <ScrambleButton href={portfolio.linkedin} label="LinkedIn" external className="text-white/70" />
+              <ScrambleButton href={portfolio.leetcode} label="LeetCode" external className="text-white/70" />
             </div>
+
+            <a
+              href={`mailto:${portfolio.email}?subject=${encodeURIComponent("Portfolio contact")}&body=${mailtoBody}`}
+              className="mt-10 inline-block text-xs uppercase tracking-[0.25em] text-emerald-300/90 transition-colors hover:text-emerald-200"
+              data-cursor
+            >
+              Compose email →
+            </a>
           </div>
         </div>
       </div>

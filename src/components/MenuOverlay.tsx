@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import Link from "next/link";
 import { gsap, registerGsap } from "@/lib/gsap";
 import { portfolio } from "@/data/portfolio";
 import LiveClock from "./LiveClock";
@@ -53,7 +52,7 @@ export default function MenuOverlay({ open, onClose }: MenuOverlayProps) {
 
       <div className="flex flex-col gap-4 py-16">
         {portfolio.navLinks.map((link) => (
-          <Link
+          <a
             key={link.href}
             href={link.href}
             onClick={onClose}
@@ -61,16 +60,16 @@ export default function MenuOverlay({ open, onClose }: MenuOverlayProps) {
             data-cursor
           >
             {link.label}
-          </Link>
+          </a>
         ))}
-        <Link
+        <a
           href="#contact"
           onClick={onClose}
           className="menu-link-item text-4xl font-light text-white/60 md:text-6xl"
           data-cursor
         >
           Contact
-        </Link>
+        </a>
       </div>
 
       <div className="grid gap-8 border-t border-white/10 pt-8 md:grid-cols-2">

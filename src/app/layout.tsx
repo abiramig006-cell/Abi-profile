@@ -8,9 +8,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Selvendran Palanisamy | Embedded Systems & IoT Developer",
+  title: "Abirami G — AI/ML Engineer & Full-Stack Developer",
   description:
-    "Portfolio of Selvendran Palanisamy — Embedded Systems and IoT Developer skilled in Arduino, ESP, RFID, and hardware–software integration.",
+    "Portfolio of Abirami G — Computer Science Engineering student passionate about AI, computer vision, and full-stack development.",
 };
 
 export default function RootLayout({

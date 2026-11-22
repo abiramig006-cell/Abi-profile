@@ -22,7 +22,6 @@ import Footer from "@/components/Footer";
 import LocationScroll from "@/components/LocationScroll";
 import SectionReveal from "@/components/SectionReveal";
 import { ThemeProvider } from "@/context/ThemeContext";
-import AutoScrollFromStart from "@/components/AutoScrollFromStart";
 import { useScrollTriggerRefresh } from "@/hooks/useRevealOnScroll";
 
 export default function HomePage() {
@@ -33,7 +32,6 @@ export default function HomePage() {
     <ThemeProvider>
       {!loaded && <Preloader onComplete={() => setLoaded(true)} />}
       <ScrollSetup>
-        <AutoScrollFromStart enabled={loaded} />
         <ScrollProgress />
         <CustomCursor />
         <Navbar />

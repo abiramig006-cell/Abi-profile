@@ -41,18 +41,18 @@ function measureLayout(
   words: string[],
   forceStacked = false,
 ): TextLayout {
-  const paddingX = Math.max(16, width * 0.05);
+  const paddingX = Math.max(12, width * 0.04);
+  const paddingY = Math.max(8, height * 0.08);
   const maxWidth = width - paddingX * 2;
-  const maxFont = Math.min(width * 0.14, 128);
-  const minFont = width < 640 ? 26 : 32;
-  const longName = words.some((word) => word.length >= 9) || words.join("").length >= 17;
-  const layoutOrder = forceStacked || longName ? [1, 0] : [0, 1];
+  const maxFont = Math.max(18, Math.min(width * 0.2, (height - paddingY * 2) * 0.96, 168));
+  const minFont = Math.max(16, Math.min(width < 640 ? 20 : 24, maxFont));
+  const layoutOrder = forceStacked ? [1, 0] : [0];
 
   for (const stackedFlag of layoutOrder) {
     const stacked = stackedFlag === 1;
 
     for (let fontSize = maxFont; fontSize >= minFont; fontSize -= 2) {
-      ctx.font = `300 ${fontSize}px ${FONT_FAMILY}`;
+      ctx.font = `600 ${fontSize}px ${FONT_FAMILY}`;
 
       if (!stacked) {
         const spacing = fontSize * 0.35;
@@ -61,7 +61,7 @@ function measureLayout(
 
         if (totalWidth > maxWidth) continue;
 
-        let x = (width - totalWidth) / 2;
+        let x = Math.max(paddingX, (width - totalWidth) / 2);
         const y = height / 2;
         const placements = words.map((word, index) => {
           const placement = { text: word, x, y };
@@ -69,11 +69,10 @@ function measureLayout(
           return placement;
         });
 
-        const fits = placements.every(
-          (placement) =>
-            placement.x >= paddingX &&
-            placement.x + ctx.measureText(placement.text).width <= width - paddingX,
-        );
+        const fits =
+          placements[0].x >= paddingX &&
+          placements[placements.length - 1].x + ctx.measureText(placements[placements.length - 1].text).width <=
+            width - paddingX;
 
         if (fits) return { fontSize, stacked: false, placements };
         continue;
@@ -84,7 +83,7 @@ function measureLayout(
       const maxLineWidth = Math.max(...wordWidths);
       const totalHeight = lineHeight * words.length;
 
-      if (maxLineWidth > maxWidth || totalHeight > height - paddingX) continue;
+      if (maxLineWidth > maxWidth || totalHeight > height - paddingY * 2) continue;
 
       const startY = (height - totalHeight) / 2 + fontSize / 2;
       const placements = words.map((word, index) => ({
@@ -103,8 +102,38 @@ function measureLayout(
     }
   }
 
+  const tryInlineFallback = (fontSize: number): TextLayout | null => {
+    ctx.font = `600 ${fontSize}px ${FONT_FAMILY}`;
+    const spacing = fontSize * 0.22;
+    const wordWidths = words.map((word) => ctx.measureText(word).width);
+    const totalWidth = wordWidths.reduce((sum, w) => sum + w, 0) + spacing * Math.max(0, words.length - 1);
+
+    if (totalWidth > maxWidth) return null;
+
+    let x = Math.max(paddingX, (width - totalWidth) / 2);
+    const y = height / 2;
+    const placements = words.map((word, index) => {
+      const placement = { text: word, x, y };
+      x += wordWidths[index] + spacing;
+      return placement;
+    });
+
+    const fits =
+      placements[0].x >= paddingX &&
+      placements[placements.length - 1].x + ctx.measureText(placements[placements.length - 1].text).width <=
+        width - paddingX;
+
+    if (!fits) return null;
+    return { fontSize, stacked: false, placements };
+  };
+
+  for (let fontSize = minFont; fontSize >= 20; fontSize -= 2) {
+    const layout = tryInlineFallback(fontSize);
+    if (layout) return layout;
+  }
+
   const fontSize = minFont;
-  ctx.font = `300 ${fontSize}px ${FONT_FAMILY}`;
+  ctx.font = `600 ${fontSize}px ${FONT_FAMILY}`;
   const lineHeight = fontSize * 1.15;
   const wordWidths = words.map((word) => ctx.measureText(word).width);
   const totalHeight = lineHeight * words.length;
@@ -135,7 +164,7 @@ function buildParticles(
   ctx.textBaseline = "middle";
 
   const layout = measureLayout(ctx, width, height, words, forceStacked);
-  ctx.font = `300 ${layout.fontSize}px ${FONT_FAMILY}`;
+  ctx.font = `600 ${layout.fontSize}px ${FONT_FAMILY}`;
 
   let hintPos: { x: number; y: number } | null = null;
 
@@ -152,22 +181,28 @@ function buildParticles(
     ctx.fillText(placement.text, placement.x, placement.y);
   }
 
-  const imageData = ctx.getImageData(0, 0, width, height);
+  const canvas = ctx.canvas;
+  const dprX = canvas.width / width;
+  const dprY = canvas.height / height;
+  const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+  const step = Math.max(1, Math.round(gap * ((dprX + dprY) / 2)));
   const particles: Particle[] = [];
 
-  for (let py = 0; py < height; py += gap) {
-    for (let px = 0; px < width; px += gap) {
-      const alpha = imageData.data[(py * width + px) * 4 + 3];
-      if (alpha > 120) {
+  for (let py = 0; py < imageData.height; py += step) {
+    for (let px = 0; px < imageData.width; px += step) {
+      const alpha = imageData.data[(py * imageData.width + px) * 4 + 3];
+      if (alpha > 72) {
+        const homeX = px / dprX;
+        const homeY = py / dprY;
         particles.push({
-          homeX: px,
-          homeY: py,
-          x: px + (Math.random() - 0.5) * width * 0.35,
-          y: py + (Math.random() - 0.5) * height * 0.2,
+          homeX,
+          homeY,
+          x: homeX + (Math.random() - 0.5) * width * 0.28,
+          y: homeY + (Math.random() - 0.5) * height * 0.16,
           vx: 0,
           vy: 0,
           char: randomChar(),
-          opacity: 0.35 + Math.random() * 0.65,
+          opacity: 0.82 + Math.random() * 0.18,
         });
       }
     }
@@ -185,6 +220,7 @@ export default function ParticleText({
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const particlesRef = useRef<Particle[]>([]);
+  const gapRef = useRef(4);
   const mouseRef = useRef({ x: -9999, y: -9999, down: false });
   const rafRef = useRef(0);
   const [hintPos, setHintPos] = useState<{ x: number; y: number } | null>(null);
@@ -214,7 +250,8 @@ export default function ParticleText({
 
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-    const gap = width < 640 ? 5 : 4;
+    const gap = height < 150 ? 2 : height < 280 ? 3 : 4;
+    gapRef.current = gap;
     const { particles, hintPos: nextHint } = buildParticles(
       ctx,
       width,
@@ -277,9 +314,13 @@ export default function ParticleText({
       const mouse = mouseRef.current;
 
       ctx.clearRect(0, 0, width, height);
-      ctx.font = `${width < 640 ? 10 : 11}px ${FONT_FAMILY}`;
       ctx.textBaseline = "middle";
       ctx.textAlign = "center";
+
+      const gap = gapRef.current;
+      const dot = Math.max(1.7, gap * 0.92);
+      const ink =
+        document.documentElement.dataset.theme === "light" ? "20,20,20" : "255,255,255";
 
       for (const particle of particles) {
         const dx = particle.x - mouse.x;
@@ -304,15 +345,19 @@ export default function ParticleText({
         particle.x += particle.vx;
         particle.y += particle.vy;
 
-        if (Math.random() < 0.018) {
-          particle.char = randomChar();
-        }
-
         const speed = Math.hypot(particle.vx, particle.vy);
-        const alpha = Math.min(1, particle.opacity + speed * 0.04);
+        const moving = speed > 1.1 || (dist < repelRadius && dist > 0);
 
-        ctx.fillStyle = `rgba(255,255,255,${alpha})`;
-        ctx.fillText(particle.char, particle.x, particle.y);
+        if (moving) {
+          if (Math.random() < 0.2) particle.char = randomChar();
+          const alpha = Math.min(1, particle.opacity + speed * 0.04);
+          ctx.font = `500 ${Math.max(11, gap * 3)}px ${FONT_FAMILY}`;
+          ctx.fillStyle = `rgba(${ink},${alpha})`;
+          ctx.fillText(particle.char, particle.x, particle.y);
+        } else {
+          ctx.fillStyle = `rgba(${ink},0.96)`;
+          ctx.fillRect(particle.x - dot / 2, particle.y - dot / 2, dot, dot);
+        }
       }
 
       rafRef.current = requestAnimationFrame(draw);
@@ -352,11 +397,13 @@ export default function ParticleText({
 
   if (reducedMotion) {
     return (
-      <div className={`flex flex-col items-center justify-center gap-y-2 ${className}`}>
+      <div
+        className={`flex items-center justify-center ${stacked ? "flex-col gap-y-2" : "gap-x-[0.35em]"} ${className}`}
+      >
         {words.map((word) => (
           <span
             key={word}
-            className="text-4xl font-light lowercase tracking-tight text-white md:text-6xl lg:text-7xl"
+            className="text-4xl font-medium tracking-tight text-white md:text-6xl lg:text-7xl"
           >
             {word}
           </span>
@@ -377,11 +424,8 @@ export default function ParticleText({
         role="img"
       />
 
-      {showHint && hintPos && (
-        <div
-          className="pointer-events-none absolute z-10 -translate-x-1/2 -translate-y-1/2 rounded border border-white/15 bg-black/70 px-3 py-1.5 text-[10px] uppercase tracking-[0.25em] text-white/70 backdrop-blur-sm"
-          style={{ left: hintPos.x, top: hintPos.y }}
-        >
+      {showHint && hintLetter && hintPos && (
+        <div className="pointer-events-none absolute bottom-1 left-1/2 z-10 -translate-x-1/2 rounded border border-white/15 bg-black/70 px-3 py-1.5 text-[10px] uppercase tracking-[0.25em] text-white/70 backdrop-blur-sm">
           Click to interact
         </div>
       )}

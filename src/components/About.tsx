@@ -2,12 +2,10 @@
 
 import { useEffect, useRef } from "react";
 import { gsap, registerGsap, ScrollTrigger } from "@/lib/gsap";
-import { useProjects } from "@/context/ProjectsContext";
 import { portfolio } from "@/data/portfolio";
 import { useRevealOnScroll, useSplitHeading } from "@/hooks/useRevealOnScroll";
 
 export default function About() {
-  const { projects } = useProjects();
   const headingRef = useSplitHeading<HTMLDivElement>();
   const sectionRef = useRevealOnScroll<HTMLElement>();
   const leftRef = useRef<HTMLDivElement>(null);
@@ -53,25 +51,33 @@ export default function About() {
           <div ref={leftRef}>
             <div ref={headingRef}>
               <div className="overflow-hidden">
+                <p data-line className="mb-4 text-xs uppercase tracking-[0.3em] text-white/45">
+                  About me
+                </p>
                 <h2 data-line className="text-3xl font-light text-white md:text-5xl">
-                  Embedded developer building systems that connect hardware, AI and full-stack code.
+                  {portfolio.aboutTitle}
                 </h2>
               </div>
             </div>
           </div>
 
           <div ref={rightRef} className="space-y-6">
-            <p data-reveal className="text-base leading-relaxed text-white/65">
-              {portfolio.summary} Strong problem-solver with hands-on experience across {projects.length}{" "}
-              GitHub repositories spanning IoT agriculture, cybersecurity AI, e-commerce, smart attendance,
-              and embedded robotics.
-            </p>
-            <p data-reveal className="text-base leading-relaxed text-white/65">
-              Based in {portfolio.location}, pursuing {portfolio.education[0].degree} at{" "}
-              {portfolio.education[0].institution}. Studied at Akshaya Academy School (Class 10 & 12).
-              Passionate about automation, circuit design, and building technology that works in the real
-              world.
-            </p>
+            {portfolio.aboutParagraphs.map((paragraph) => (
+              <p key={paragraph.slice(0, 32)} data-reveal className="text-base leading-relaxed text-white/65">
+                {paragraph}
+              </p>
+            ))}
+
+            <div data-reveal className="rounded-2xl border border-white/10 bg-white/[0.02] p-6">
+              <p className="mb-4 text-xs uppercase tracking-[0.25em] text-white/45">Currently exploring</p>
+              <ul className="grid gap-2 sm:grid-cols-2">
+                {portfolio.exploring.map((item) => (
+                  <li key={item} className="text-sm text-white/75">
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
       </div>

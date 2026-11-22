@@ -1,11 +1,11 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { gsap, registerGsap, ScrollTrigger } from "@/lib/gsap";
+import { gsap, registerGsap } from "@/lib/gsap";
 import { portfolio } from "@/data/portfolio";
-import { useRevealOnScroll, useSplitHeading } from "@/hooks/useRevealOnScroll";
+import { useSplitHeading } from "@/hooks/useRevealOnScroll";
 
-function SkillBar({ label, level }: { label: string; level: number }) {
+function SkillBar({ label, level, active }: { label: string; level: number; active: boolean }) {
   const barRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -30,9 +30,9 @@ function SkillBar({ label, level }: { label: string; level: number }) {
   }, [level]);
 
   return (
-    <div>
-      <div className="mb-2 flex items-center justify-between text-xs uppercase tracking-[0.2em] text-white/50">
-        <span>{label}</span>
+    <div className={`transition-opacity duration-500 ease-out ${active ? "opacity-100" : "opacity-45"}`}>
+      <div className="mb-2 flex items-center justify-between gap-2 text-[10px] uppercase tracking-[0.16em] text-white/50 sm:text-xs sm:tracking-[0.2em]">
+        <span className="truncate">{label}</span>
         <span>{level}%</span>
       </div>
       <div className="h-1.5 overflow-hidden rounded-full bg-white/10">
@@ -47,32 +47,41 @@ function SkillBar({ label, level }: { label: string; level: number }) {
 
 export default function Skills() {
   const headingRef = useSplitHeading<HTMLDivElement>();
-  const sectionRef = useRevealOnScroll<HTMLElement>({ stagger: 0.06 });
   const [activeCategory, setActiveCategory] = useState(0);
   const [hoveredItem, setHoveredItem] = useState<number | null>(null);
 
   const items = portfolio.skills[activeCategory].items;
   const activeSkill = portfolio.skills[activeCategory];
 
+  const selectCategory = (index: number) => {
+    setHoveredItem(null);
+    setActiveCategory(index);
+  };
+
   return (
-    <section id="skills" ref={sectionRef} className="border-t border-white/10 py-24 md:py-32">
+    <section id="skills" className="border-t border-white/10 py-24 md:py-32">
       <div className="mx-auto max-w-7xl px-6 md:px-10">
         <div ref={headingRef} className="mb-16 max-w-3xl">
           <div className="overflow-hidden">
             <h2 data-line className="text-3xl font-light text-white md:text-5xl">
-              Capabilities
+              What I work with
             </h2>
           </div>
           <div className="overflow-hidden">
             <p data-line className="mt-4 text-white/60">
-              Embedded systems, full-stack development, AI integration and production DevOps tooling.
+              Technologies I use in coursework, projects, and hackathons — grouped by where they fit in the stack.
             </p>
           </div>
         </div>
 
         <div className="mb-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {portfolio.skills.map((group) => (
-            <SkillBar key={group.category} label={group.category} level={group.level} />
+          {portfolio.skills.map((group, index) => (
+            <SkillBar
+              key={group.category}
+              label={group.category}
+              level={group.level}
+              active={activeCategory === index}
+            />
           ))}
         </div>
 
@@ -82,10 +91,8 @@ export default function Skills() {
               <button
                 key={group.category}
                 type="button"
-                data-reveal
-                onMouseEnter={() => setActiveCategory(index)}
-                onClick={() => setActiveCategory(index)}
-                className={`rounded-xl px-4 py-3 text-left text-sm uppercase tracking-[0.2em] transition-all duration-300 ${
+                onClick={() => selectCategory(index)}
+                className={`rounded-xl px-4 py-3 text-left text-sm uppercase tracking-[0.2em] transition-colors duration-300 ${
                   activeCategory === index
                     ? "bg-white text-neutral-950"
                     : "text-white/50 hover:text-white"
@@ -105,29 +112,30 @@ export default function Skills() {
                 opacity: hoveredItem !== null ? 1 : 0,
               }}
             />
-            <h3 className="mb-2 text-xs uppercase tracking-[0.25em] text-white/40">
-              {activeSkill.category}
-            </h3>
-            <p className="mb-6 text-sm text-white/55">{activeSkill.level}% proficiency</p>
-            <ul className="grid gap-3 sm:grid-cols-2">
-              {items.map((item, index) => (
-                <li
-                  key={item}
-                  data-reveal
-                  onMouseEnter={() => setHoveredItem(index)}
-                  onMouseLeave={() => setHoveredItem(null)}
-                  className={`rounded-xl border px-4 py-3 transition-all duration-300 ${
-                    hoveredItem === index
-                      ? "border-white/40 bg-white/[0.06] text-white"
-                      : hoveredItem !== null
-                        ? "border-white/5 text-white/35"
-                        : "border-white/10 text-white/80 hover:border-white/30"
-                  }`}
-                >
-                  {item}
-                </li>
-              ))}
-            </ul>
+            <div key={activeSkill.category} className="skill-panel-in">
+              <h3 className="mb-2 text-xs uppercase tracking-[0.25em] text-white/40">
+                {activeSkill.category}
+              </h3>
+              <p className="mb-6 text-sm text-white/55">{activeSkill.level}% proficiency</p>
+              <ul className="grid gap-3 sm:grid-cols-2">
+                {items.map((item, index) => (
+                  <li
+                    key={item}
+                    onMouseEnter={() => setHoveredItem(index)}
+                    onMouseLeave={() => setHoveredItem(null)}
+                    className={`rounded-xl border px-4 py-3 transition-all duration-300 ${
+                      hoveredItem === index
+                        ? "border-white/40 bg-white/[0.06] text-white"
+                        : hoveredItem !== null
+                          ? "border-white/5 text-white/35"
+                          : "border-white/10 text-white/80 hover:border-white/30"
+                    }`}
+                  >
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
       </div>

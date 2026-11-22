@@ -13,20 +13,24 @@ export default function Education() {
     period: item.period,
     title: item.degree,
     subtitle: item.institution,
+    body: item.note ? [item.note] : undefined,
   }));
 
   return (
-    <section ref={sectionRef} className="border-t border-white/10 py-24 md:py-32">
+    <section id="education" ref={sectionRef} className="border-t border-white/10 py-24 md:py-32">
       <div className="mx-auto max-w-7xl px-6 md:px-10">
         <div ref={headingRef} className="mb-16 max-w-3xl">
           <div className="overflow-hidden">
-            <h2 data-line className="text-3xl font-light text-white md:text-5xl">
+            <p data-line className="mb-4 text-xs uppercase tracking-[0.3em] text-white/45">
               Education
+            </p>
+            <h2 data-line className="text-3xl font-light text-white md:text-5xl">
+              Where I study
             </h2>
           </div>
           <div className="overflow-hidden">
             <p data-line className="mt-4 text-white/60">
-              From school foundations to engineering — Akshaya Academy and Christian College of Engineering.
+              Engineering at PSNA College and school foundations at St. Anne&apos;s Academy, Dindigul.
             </p>
           </div>
         </div>

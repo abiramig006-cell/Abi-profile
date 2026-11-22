@@ -56,12 +56,12 @@ export default function Highlights() {
           <div>
             <div className="overflow-hidden">
               <h2 data-line className="text-3xl font-light text-white md:text-5xl">
-                Project Highlights
+                Featured project snapshots
               </h2>
             </div>
             <div className="overflow-hidden">
               <p data-line className="mt-4 text-white/60">
-                What the work delivers in practice — across IoT, AI and full-stack systems.
+                Problem, approach, and impact across AI, computer vision, and full-stack builds.
               </p>
             </div>
           </div>

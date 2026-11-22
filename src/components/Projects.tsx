@@ -81,17 +81,17 @@ export default function Projects() {
             <div className="max-w-3xl">
               <div className="overflow-hidden">
                 <h2 data-line className="text-3xl font-light text-white md:text-5xl">
-                  All Projects
+                  Selected work
                 </h2>
               </div>
               <div className="overflow-hidden">
                 <p data-line className="mt-4 text-white/60">
-                  {projects.length} GitHub repositories — IoT, AI, embedded systems and full-stack
-                  applications. Scroll down to browse all projects.
+                  {projects.length} featured projects across AI, computer vision, and full-stack
+                  development — each with its problem, approach, and honest status.
                 </p>
               </div>
             </div>
-            <ScrambleButton href={portfolio.github} label="View on GitHub" external className="text-white/70" />
+            <ScrambleButton href={portfolio.github} label="View GitHub" external className="text-white/70" />
           </div>
         </div>
 
@@ -132,7 +132,8 @@ export default function Projects() {
                     </div>
                     <div>
                       <p className="mb-2 text-xs uppercase tracking-[0.25em] text-white/70">
-                        {project.date} · {project.language}
+                        {project.status ? `${project.status} · ` : ""}
+                        {project.language}
                       </p>
                       <h3 className="text-xl font-light text-white md:text-2xl">{project.title}</h3>
                     </div>

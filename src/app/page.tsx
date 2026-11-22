@@ -1,10 +1,10 @@
 import HomePage from "@/components/HomePage";
 import { ProjectsProvider } from "@/context/ProjectsContext";
-import { fetchGitHubProjects, getFeaturedProjects } from "@/lib/github-repos";
+import { getFeaturedStaticProjects, getStaticProjects } from "@/data/portfolio";
 
-export default async function Home() {
-  const projects = await fetchGitHubProjects();
-  const featuredProjects = getFeaturedProjects(projects);
+export default function Home() {
+  const projects = getStaticProjects();
+  const featuredProjects = getFeaturedStaticProjects(projects);
 
   return (
     <ProjectsProvider projects={projects} featuredProjects={featuredProjects}>

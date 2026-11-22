@@ -6,46 +6,131 @@
 }
 
 html[data-theme="light"] {
-  --background: #f5f5f5;
-  --foreground: #111111;
+  --background: #f4f4f2;
+  --foreground: #141414;
+  --ink: #141414;
+  --ink-strong: rgb(20 20 20 / 0.82);
+  --ink-body: rgb(20 20 20 / 0.68);
+  --ink-muted: rgb(20 20 20 / 0.52);
+  --ink-faint: rgb(20 20 20 / 0.4);
 }
 
 html[data-theme="light"] body {
-  background: #f5f5f5;
-  color: #111111;
+  background: #f4f4f2;
+  color: #141414;
 }
 
 html[data-theme="light"] .bg-neutral-950,
+html[data-theme="light"] .bg-neutral-950\/60,
+html[data-theme="light"] .bg-neutral-950\/80,
+html[data-theme="light"] .bg-neutral-950\/85,
 html[data-theme="light"] main {
-  background: #f5f5f5 !important;
-  color: #111111;
+  background-color: #f4f4f2 !important;
+  color: #141414;
 }
 
 html[data-theme="light"] .text-white {
-  color: #111111;
+  color: var(--ink) !important;
+}
+
+html[data-theme="light"] .text-white\/80,
+html[data-theme="light"] .text-white\/75,
+html[data-theme="light"] .text-white\/70 {
+  color: var(--ink-strong) !important;
 }
 
 html[data-theme="light"] .text-white\/65,
 html[data-theme="light"] .text-white\/60,
-html[data-theme="light"] .text-white\/70,
-html[data-theme="light"] .text-white\/55,
+html[data-theme="light"] .text-white\/55 {
+  color: var(--ink-body) !important;
+}
+
 html[data-theme="light"] .text-white\/50,
 html[data-theme="light"] .text-white\/45,
-html[data-theme="light"] .text-white\/40,
-html[data-theme="light"] .text-white\/35,
-html[data-theme="light"] .text-white\/30 {
-  color: rgb(17 17 17 / 0.72);
+html[data-theme="light"] .text-white\/40 {
+  color: var(--ink-muted) !important;
 }
 
+html[data-theme="light"] .text-white\/35,
+html[data-theme="light"] .text-white\/30,
+html[data-theme="light"] .text-white\/25 {
+  color: var(--ink-faint) !important;
+}
+
+html[data-theme="light"] .hover\:text-white:hover,
+html[data-theme="light"] .hover\:text-white\/60:hover {
+  color: var(--ink) !important;
+}
+
+html[data-theme="light"] .group:hover .group-hover\:text-white\/55 {
+  color: var(--ink-body) !important;
+}
+
+html[data-theme="light"] .text-emerald-300,
+html[data-theme="light"] .text-emerald-300\/90,
+html[data-theme="light"] .text-emerald-400\/80 {
+  color: #047857 !important;
+}
+
+html[data-theme="light"] .hover\:text-emerald-200:hover {
+  color: #065f46 !important;
+}
+
+html[data-theme="light"] .bg-white.text-neutral-950 {
+  background-color: #141414 !important;
+  color: #f7f7f5 !important;
+  border-color: #141414 !important;
+}
+
+html[data-theme="light"] .project-media .text-white,
+html[data-theme="light"] .bg-black\/70.text-white\/70 {
+  color: #ffffff !important;
+}
+
+html[data-theme="light"] .project-media .text-white\/70,
+html[data-theme="light"] .project-media .text-white\/80,
+html[data-theme="light"] .bg-black\/30.text-white\/80,
+html[data-theme="light"] .bg-black\/40.text-white\/80 {
+  color: rgb(255 255 255 / 0.9) !important;
+}
+
+html[data-theme="light"] .border-white,
+html[data-theme="light"] .border-white\/5,
 html[data-theme="light"] .border-white\/10,
 html[data-theme="light"] .border-white\/15,
-html[data-theme="light"] .border-white\/20 {
-  border-color: rgb(17 17 17 / 0.12);
+html[data-theme="light"] .border-white\/20,
+html[data-theme="light"] .border-white\/25 {
+  border-color: rgb(20 20 20 / 0.14) !important;
 }
 
-html[data-theme="light"] nav.scrolled,
-html[data-theme="light"] nav {
-  background: rgb(245 245 245 / 0.85) !important;
+html[data-theme="light"] .hover\:border-white\/30:hover,
+html[data-theme="light"] .hover\:border-white\/40:hover,
+html[data-theme="light"] .hover\:border-white\/50:hover {
+  border-color: rgb(20 20 20 / 0.4) !important;
+}
+
+html[data-theme="light"] .bg-white\/\[0\.02\],
+html[data-theme="light"] .bg-white\/\[0\.03\] {
+  background-color: rgb(20 20 20 / 0.035) !important;
+}
+
+html[data-theme="light"] .bg-white\/\[0\.04\],
+html[data-theme="light"] .bg-white\/\[0\.06\] {
+  background-color: rgb(20 20 20 / 0.06) !important;
+}
+
+html[data-theme="light"] .bg-white.pointer-events-none {
+  background-color: #141414 !important;
+}
+
+html[data-theme="light"] nav,
+html[data-theme="light"] nav.scrolled {
+  background: rgb(244 244 242 / 0.88) !important;
+}
+
+html[data-theme="light"] ::selection {
+  background: rgb(20 20 20 / 0.14);
+  color: #141414;
 }
 
 @theme inline {
@@ -88,6 +173,19 @@ body {
 
 .logo-marquee {
   animation: marquee 50s linear infinite;
+}
+
+.skill-panel-in {
+  animation: skill-panel-in 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes skill-panel-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes marquee {
