@@ -6,33 +6,12 @@ import { useProjects } from "@/context/ProjectsContext";
 import { portfolio } from "@/data/portfolio";
 import { useSplitHeading } from "@/hooks/useRevealOnScroll";
 
-function OdometerDigit({ value, duration = 1.5 }: { value: number; duration?: number }) {
-  const rollerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    registerGsap();
-    const roller = rollerRef.current;
-    if (!roller) return;
-
-    gsap.fromTo(
-      roller,
-      { y: 0 },
-      {
-        y: `-${value * 100}%`,
-        duration,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: roller,
-          start: "top 90%",
-          once: true,
-        },
-      },
-    );
-  }, [value, duration]);
+function OdometerDigit({ value }: { value: number }) {
+  const digit = Math.min(9, Math.max(0, value));
 
   return (
     <span className="relative inline-block h-[1em] w-[0.62em] overflow-hidden align-top">
-      <span ref={rollerRef} className="flex flex-col">
+      <span className="flex flex-col" style={{ transform: `translateY(-${digit}em)` }}>
         {Array.from({ length: 10 }, (_, i) => (
           <span key={i} className="block h-[1em] leading-none">
             {i}
@@ -49,7 +28,7 @@ function OdometerValue({ value, suffix }: { value: number; suffix: string }) {
   return (
     <span className="inline-flex items-end text-5xl font-light text-white md:text-7xl">
       {digits.map((digit, i) => (
-        <OdometerDigit key={`${digit}-${i}`} value={digit} duration={1.8} />
+        <OdometerDigit key={`${digit}-${i}`} value={digit} />
       ))}
       {suffix && <span>{suffix}</span>}
     </span>

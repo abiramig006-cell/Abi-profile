@@ -136,18 +136,48 @@ export const portfolio = {
     },
   ] satisfies Achievement[],
   certifications: [
-    { title: "Java", org: "IBM", year: "" },
-    { title: "MongoDB", org: "IBM", year: "" },
-    { title: "AI", org: "AWS", year: "" },
-    { title: "Python", org: "Cisco", year: "" },
-    { title: "Java", org: "Oracle", year: "" },
+    {
+      title: "Java",
+      org: "IBM",
+      year: "",
+      detail:
+        "Covers Java basics, classes, and object-oriented programming for building small, structured applications.",
+    },
+    {
+      title: "MongoDB",
+      org: "IBM",
+      year: "",
+      detail:
+        "Covers document databases, collections, and how application data is stored and queried in MongoDB.",
+    },
+    {
+      title: "AI",
+      org: "AWS",
+      year: "",
+      detail:
+        "Introduces practical machine learning ideas and how AI services are used on Amazon Web Services.",
+    },
+    {
+      title: "Python",
+      org: "Cisco",
+      year: "",
+      detail:
+        "Covers Python syntax, problem solving, and writing short scripts through guided programming labs.",
+    },
+    {
+      title: "Java",
+      org: "Oracle",
+      year: "",
+      detail:
+        "Covers core Java syntax, objects, and the basics of writing and running Java programs.",
+    },
   ],
   education: [
     {
       degree: "Bachelor of Engineering in Computer Science",
       period: "Sep 2024 – May 2028",
       institution: "PSNA College of Engineering and Technology, Dindigul",
-      note: "CGPA 8.5",
+      note: "CGPA 8.40",
     },
     {
       degree: "Secondary and higher secondary education",
@@ -205,7 +235,7 @@ export const portfolio = {
   projects: [
     {
       title: "Talent Track — AI-Based Sports Talent Assessment Platform",
-      repo: "talent-track",
+      repo: "web-project",
       tags: ["React", "Node.js", "Express.js", "MongoDB"],
       category: ["AI", "Full-Stack"],
       date: "",
@@ -219,7 +249,7 @@ export const portfolio = {
         "Designed a responsive interface for video uploads and athlete profiles.",
         "Structured the application to support AI-based performance analysis.",
       ],
-      url: "https://github.com/abiramig006",
+      url: "https://github.com/abiramig006/web-project",
       image:
         "https://images.unsplash.com/photo-1552674605-db6ffd4facb5?auto=format&fit=crop&w=1200&q=80",
       featured: true,
@@ -241,7 +271,7 @@ export const portfolio = {
         "Integrated AI-assisted resume content generation.",
         "Designed a mobile-friendly interface with Dark Mode support.",
       ],
-      url: "https://abiramig006.github.io/AI-Resume-builder/",
+      url: "https://github.com/abiramig006/AI-Resume-builder",
       image:
         "https://images.unsplash.com/photo-1586281380349-632531db7ed4?auto=format&fit=crop&w=1200&q=80",
       featured: true,
@@ -249,7 +279,7 @@ export const portfolio = {
     },
     {
       title: "AI-Based Weather Forecast Bust Detection App",
-      repo: "weather-forecast-bust",
+      repo: "data-project",
       tags: ["Machine Learning", "NOAA"],
       category: ["AI"],
       date: "",
@@ -264,7 +294,7 @@ export const portfolio = {
         "Designed an interactive dashboard with confidence maps, historical error graphs, and 10-day forecast reliability.",
         "Implemented error-prone area detection, explainable AI, and weather reliability alerts.",
       ],
-      url: "https://github.com/abiramig006",
+      url: "https://github.com/abiramig006/data-project",
       image:
         "https://images.unsplash.com/photo-1534088568595-a066f410bcda?auto=format&fit=crop&w=1200&q=80",
       featured: true,
@@ -272,7 +302,7 @@ export const portfolio = {
     },
     {
       title: "TextileGuard AI — GAN-Based Textile Defect Detection System",
-      repo: "textileguard-ai",
+      repo: "ai-project",
       tags: ["GAN", "CNN", "Streamlit"],
       category: ["Computer Vision", "AI"],
       date: "",
@@ -287,7 +317,7 @@ export const portfolio = {
         "Trained and evaluated the model using a textile defect image dataset.",
         "Developed a Streamlit web application for textile defect prediction and visualization.",
       ],
-      url: "https://github.com/abiramig006",
+      url: "https://github.com/abiramig006/ai-project",
       image:
         "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?auto=format&fit=crop&w=1200&q=80",
       featured: true,
@@ -307,7 +337,7 @@ export const portfolio = {
         "Built the VISION web app for smarter waste collection and cleaner spaces.",
         "Added account creation and a Firebase password reset flow.",
       ],
-      url: "https://abiramig006.github.io/Vision-Clean/",
+      url: "https://github.com/abiramig006/Vision-Clean",
       image:
         "https://images.unsplash.com/photo-1611284446314-60a58ac0deb9?auto=format&fit=crop&w=1200&q=80",
       featured: true,
@@ -320,7 +350,7 @@ export const portfolio = {
       text: "Projects across textile vision, weather analytics, sports talent tracking, and full-stack apps.",
     },
     {
-      value: "8.5",
+      value: "8.40",
       text: "CGPA in Computer Science Engineering at PSNA College of Engineering and Technology.",
     },
     {
